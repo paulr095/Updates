@@ -213,6 +213,8 @@
       <DependentUpon>HomeCategoryPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="HomeCatPTableSource.cs" />
+    <Compile Include="AlertCategoriesTableSource.cs" />
+    <Compile Include="AlertCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
