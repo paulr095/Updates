@@ -40,12 +40,42 @@ namespace Bhasvic10th.iOS
 			//return true;
 		}
 
+		static public void dropNewsItemTable()
+		{
+			db.DropTable<NewsItem>();
+		}
 		static public void createSettingsItemTable()
 		{
 			db.CreateTable<SystemSettings>();
-			//db.CreateTable<ChosenCategories>();
-			//return true;
 		}
+
+		static public void dropSettingsItemTable()
+		{
+			db.DropTable<SystemSettings>();
+		}
+
+		static public void createAlertCategoryTable()
+		{
+			db.CreateTable<AlertCategory>();
+		}
+
+		static public void dropAlertCategoryTable()
+		{
+			db.DropTable<AlertCategory>();
+		}
+
+
+		// Method needed to identify if the Table has ever been created
+
+		static public List<SQLiteConnection.ColumnInfo> getTableInfo(string tableName)
+		{
+			List<SQLiteConnection.ColumnInfo> l =  db.GetTableInfo(tableName);
+			return l;
+		}
+
+
+
+		// ***** NewsItemTable methods
 
 		static public bool updateDBWithJSON(string jsonString)
 		{
@@ -73,8 +103,44 @@ namespace Bhasvic10th.iOS
 		static public List<NewsItem> getCatItemList(string chosenCat)
 		{
 			var query2 = db.Query<NewsItem>("select * from NewsItem where Category = '" + chosenCat + "'");
+
+			if (chosenCat.Equals("All"))
+			{
+				query2 = db.Query<NewsItem>("select * from NewsItem");
+			}
 			return query2.ToList();
 		
+		}
+
+
+		static public List<NewsItem> getEventList()
+		{
+			var query = db.Query<NewsItem>("select * from NewsItem where DateOfEvent IS NOT NULL" );
+			return query.ToList();
+		}
+
+
+		// ***** AlertCategoryTable queries
+
+		static public bool updateAlertCategoryTable(AlertCategory alertCategory)
+		{
+		
+			db.RunInTransaction(() =>
+			{
+					db.InsertOrReplace(alertCategory);
+			});
+			return true;
+		
+		}
+
+		static public List<AlertCategory> getAllAlertCategories()
+		{
+			return db.Query<AlertCategory>("select * from AlertCategory").ToList().OrderBy(x => x.Category).ToList();
+		}
+
+		static public AlertCategory getAlertCategory(string category)
+		{
+			return db.Find<AlertCategory>(category);
 		}
 
 	}

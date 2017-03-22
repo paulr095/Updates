@@ -1,6 +1,7 @@
 using Foundation;
 using System;
 using UIKit;
+using System.Collections.Generic;
 
 namespace Bhasvic10th.iOS
 {
@@ -12,8 +13,8 @@ namespace Bhasvic10th.iOS
         }
 		public override void ViewWillAppear(bool animated)
 		{
-
-			TableView.Source = new EventsTableSource(LocalBhasvicDB.getItemList());
+			List<NewsItem> eventItems = LocalBhasvicDB.getEventList();
+			TableView.Source = new EventsTableSource(eventItems);
 
 
 			base.ViewWillAppear(animated);

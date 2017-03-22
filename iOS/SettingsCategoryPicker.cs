@@ -9,5 +9,11 @@ namespace Bhasvic10th.iOS
         public SettingsCategoryPicker (IntPtr handle) : base (handle)
         {
         }
-    }
+
+		public override void ViewWillAppear(bool animated)
+		{
+			TableView.Source = new AlertCategoriesTableSource(LocalBhasvicDB.getAllAlertCategories());
+			base.ViewWillAppear(animated);
+		}
+	}
 }

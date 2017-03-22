@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using SQLite;
-//using SQLiteNetExtensions;
-//using SQLiteNetExtensions.Attributes;
+﻿using SQLite;
 
 namespace Bhasvic10th.iOS
 {
