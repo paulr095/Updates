@@ -39,6 +39,20 @@ namespace Bhasvic10th.iOS
 			LocalBhasvicDB.updateDBWithJSON(jsonString);
 			Console.WriteLine(LocalBhasvicDB.getItemList());
 
+			// Initialise AlertCategory Table if this is the first time the App is run
+
+			if (LocalBhasvicDB.getTableInfo("AlertCategory").Count == 0)
+			{
+				LocalBhasvicDB.createAlertCategoryTable();
+				var alertCat = new AlertCategory();
+				foreach (var category in ChosenCategories.categories)
+				{
+					alertCat.Alert = true;
+					alertCat.Category = category;
+					LocalBhasvicDB.updateAlertCategoryTable(alertCat);
+				}
+			}
+
 
 		}
 
